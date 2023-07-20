@@ -30,6 +30,7 @@ describe "Crunchr::CoreExt" do
 
     it "should mode the values" do
       [ 1, 1, 1, 1, 1, 2, 2, 2, 3, 3 ].mode.should == 1
+      [ 1, 1, 1, 1, 1 ].mode.should == undef
     end
 
     it "should stddev the values" do
