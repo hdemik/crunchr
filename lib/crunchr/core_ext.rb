@@ -49,9 +49,18 @@ class Array
     list.last - list.first
   end
 
+  # returns the most occuring value in the list.
+  # if there are no re-occuring values, return `undef`
+  #
   def mode
     counts = {}
     self.collect { |i| counts[i] ||= 0; counts[i] += 1 }
-    counts.key(counts.values.sort.last)
+    values = counts.values.sort
+    
+    if values.range > 0
+      counts.key(values.last)
+    else
+      undef
+    end
   end
 end
