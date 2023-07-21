@@ -23,18 +23,27 @@ class Hash
 end
 
 class Array
+  # the sum of all numbers in the sample
   def sum
     self.inject(0.0) { |s, i| (s += i) rescue s }
   end
 
+  # the mean of all numbers in the sample
   def mean
     (self.sum * 1.0) / self.count
   end
 
-  def stddev
-    Math.sqrt(self.collect{ |i| (i - self.mean) ** 2 }.sum) / Math.sqrt(self.count - 1)
+  # the variance of the sample, set sample to false to get the variance of the population
+  def variance(sample=true)
+    self.collect{ |i| (i - self.mean) ** 2 }.sum) / (self.count - sample ? 1 : 0)
   end
 
+  # the standard deviation of the sample, set sample to false to get the standard deviation of the population
+  def stddev(sample=true)
+    Math.sqrt(self.variance(sample))
+  end
+
+  # the median of the sample
   def median
     center = (self.count + (self.count % 2)) / 2
     list = self.sort
@@ -44,6 +53,7 @@ class Array
      list[center - 1]
   end
 
+  # the range of the sample
   def range
     list = self.sort
     list.last - list.first
